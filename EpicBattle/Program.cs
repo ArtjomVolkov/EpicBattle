@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.IO;
 
 namespace EpicBattle
 {
@@ -6,9 +7,10 @@ namespace EpicBattle
     {
         static void Main(string[] args)
         {
-            string[] heroes = { "Dominic Toretto", "IvanZolo2004", "Hog Rider", "Spange Bob" };
-            string[] villains = { "Nekoglai", "Joker", "Buster", "Putin", "Vodka", "Evelon" };
-
+            string rootPath = @"C:\Users\opilane\samples\";
+            string[] heroes = GetDataFromFile(rootPath + "heroes.txt");
+            string[] villains = GetDataFromFile(rootPath + "villains.txt");
+            string[] weapon = GetDataFromFile(rootPath + "weapon.txt");
 
 
             string randomHero = GetRandomCharacter(heroes);
@@ -16,8 +18,8 @@ namespace EpicBattle
             Console.WriteLine($"Your random hero is {randomHero}");
             Console.WriteLine($"Your random villain is {randomVillains}");
 
-            string randomWeapon = GetWeapon();
-            string randomWeapons = GetWeapon();
+            string randomWeapon = GetRandomCharacter(weapon);
+            string randomWeapons = GetRandomCharacter(weapon);
             Console.WriteLine($"Your weapon Hero {randomWeapon}");
             Console.WriteLine($"Your weapon Villain {randomWeapons}");
         }
@@ -28,15 +30,15 @@ namespace EpicBattle
             return someArray[GetRandomIndexForArray(someArray)];
         }
 
-        public static string GetWeapon()
-        {
-            string[] weapon = { "AWP", "Desert Eagle", "AK-47", "Knife", "Pen" };
-            return weapon[GetRandomIndexForArray(weapon)];
-        }
         public static int GetRandomIndexForArray(string[] someArray)
         {
             Random rnd = new Random();
             return rnd.Next(0, someArray.Length);
+        }
+        public static string[] GetDataFromFile(string filePath)
+        {
+            string[] dataFromFile = File.ReadAllLines(filePath);
+            return dataFromFile;
         }
     }
 }
